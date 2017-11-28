@@ -16,4 +16,8 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install iconv mcrypt pdo_mysql bcmath exif \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install gd zip
+
+RUN echo "php_value[memory_limit] = 512M" >> /usr/local/etc/php-fpm.conf
+RUN echo "php_value[date.timezone] = America/Guyana" >> /usr/local/etc/php-fpm.conf
+
 CMD ["php-fpm"]
