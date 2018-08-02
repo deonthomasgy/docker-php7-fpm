@@ -1,4 +1,4 @@
-FROM php:7.1-fpm
+FROM php:7.1.20-fpm
 
 MAINTAINER Deon Thomas "Deon.Thomas.GY@gmail.com"
 
@@ -19,5 +19,8 @@ RUN apt-get update && apt-get install -y \
 
 RUN echo "php_value[memory_limit] = 512M" >> /usr/local/etc/php-fpm.conf
 RUN echo "php_value[date.timezone] = America/Guyana" >> /usr/local/etc/php-fpm.conf
+RUN echo "php_value[upload_max_filesize] = 1024M" >> /usr/local/etc/php-fpm.conf
+RUN echo "php_value[post_max_size] = 1024M" >> /usr/local/etc/php-fpm.conf
+
 
 CMD ["php-fpm"]
