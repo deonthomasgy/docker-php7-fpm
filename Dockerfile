@@ -19,6 +19,20 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-enable mcrypt \
     && php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer
 
+# Install igbinary (for more efficient serialization in redis/memcached)
+RUN for i in $(seq 1 3); do pecl install -o igbinary && s=0 && break || s=$? && sleep 1; done; (exit $s) \
+    && docker-php-ext-enable igbinary
+
+# Install redis (manualy build in order to be able to enable igbinary)
+RUN for i in $(seq 1 3); do pecl install -o --nobuild redis && s=0 && break || s=$? && sleep 1; done; (exit $s) \
+    && cd "$(pecl config-get temp_dir)/redis" \
+    && phpize \
+    && ./configure --enable-redis-igbinary \
+    && make \
+    && make install \
+    && docker-php-ext-enable redis \
+    && cd -
+
 RUN echo "php_value[memory_limit] = 512M" >> /usr/local/etc/php-fpm.conf
 RUN echo "php_value[date.timezone] = America/Guyana" >> /usr/local/etc/php-fpm.conf
 RUN echo "php_value[upload_max_filesize] = 1024M" >> /usr/local/etc/php-fpm.conf
