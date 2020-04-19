@@ -10,6 +10,7 @@ This Container includes the following extensions:
   - gd
   - imagick
   - exif
+  - mysqli
 # Installation
 The following command will pull the latest php-fpm build.
 ```sh
