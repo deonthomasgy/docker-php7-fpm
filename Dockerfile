@@ -60,7 +60,7 @@ RUN echo "php_value[memory_limit] = 512M" >> /usr/local/etc/php-fpm.conf
 RUN echo "php_value[date.timezone] = America/Guyana" >> /usr/local/etc/php-fpm.conf
 RUN echo "php_value[upload_max_filesize] = 1024M" >> /usr/local/etc/php-fpm.conf
 RUN echo "php_value[post_max_size] = 1024M" >> /usr/local/etc/php-fpm.conf
-RUN echo 'max_execution_time = 360' >> /usr/local/etc/php/conf.d/docker-php-maxexectime.ini;
+RUN echo 'max_execution_time = 1200' >> /usr/local/etc/php/conf.d/docker-php-maxexectime.ini;
 #RUN sed -e 's/max_execution_time = 30/max_execution_time = 360/' -i  /usr/local/etc/php/php.ini-development
 #RUN sed -e 's/max_execution_time = 30/max_execution_time = 360/' -i  /usr/local/etc/php/php.ini-production
 
