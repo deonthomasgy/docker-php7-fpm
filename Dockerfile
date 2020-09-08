@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libmcrypt-dev \
+        libwebp-dev \
         libpng-dev \
         libmagickwand-6.q16-dev \
         gnupg \
@@ -15,7 +16,7 @@ RUN apt-get update && apt-get install -y \
     && echo "extension=imagick.so" > /usr/local/etc/php/conf.d/ext-imagick.ini \
     && pecl install mcrypt-1.0.1 \
     && docker-php-ext-install iconv pdo_mysql bcmath exif \
-    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-configure gd --enable-shared --with-webp-dir=/usr/include/ --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install gd zip mysqli intl\
     && docker-php-ext-enable mcrypt \
     && php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer
