@@ -64,5 +64,8 @@ RUN echo "php_value[post_max_size] = 1024M" >> /usr/local/etc/php-fpm.conf
 RUN echo 'max_execution_time = 1200' >> /usr/local/etc/php/conf.d/docker-php-maxexectime.ini;
 #RUN sed -e 's/max_execution_time = 30/max_execution_time = 360/' -i  /usr/local/etc/php/php.ini-development
 #RUN sed -e 's/max_execution_time = 30/max_execution_time = 360/' -i  /usr/local/etc/php/php.ini-production
+RUN sed -e 's/memory_limit = 128M/memory_limit = 512M/' -i  /usr/local/etc/php/php.ini-production
+RUN sed -e 's/memory_limit = 128M/memory_limit = 512M/' -i  /usr/local/etc/php/php.ini-development
+RUN cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini
 
 CMD ["php-fpm"]
