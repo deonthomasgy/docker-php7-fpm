@@ -1,4 +1,4 @@
-FROM php:7.2-fpm-stretch
+FROM php:7.4-fpm-buster
 
 MAINTAINER Deon Thomas "Deon.Thomas.GY@gmail.com"
 
@@ -10,13 +10,15 @@ RUN apt-get update && apt-get install -y \
         libwebp-dev \
         libpng-dev \
         libmagickwand-6.q16-dev \
+        libonig-dev \
+        libzip-dev \
         gnupg \
     && ln -s /usr/lib/x86_64-linux-gnu/ImageMagick-6.8.9/bin-Q16/MagickWand-config /usr/bin \
     && pecl install imagick \
     && echo "extension=imagick.so" > /usr/local/etc/php/conf.d/ext-imagick.ini \
-    && pecl install mcrypt-1.0.1 \
+    && pecl install mcrypt-1.0.3 \
     && docker-php-ext-install iconv pdo_mysql bcmath exif \
-    && docker-php-ext-configure gd --enable-shared --with-webp-dir=/usr/include/ --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd zip mysqli intl\
     && docker-php-ext-enable mcrypt \
     && php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer
