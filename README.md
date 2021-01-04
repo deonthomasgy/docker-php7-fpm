@@ -12,8 +12,6 @@ This Container includes the following extensions:
   - exif
   - mysqli
   - intl
-  - pdo_sqlsrv
-  - sqlsrv
 # Installation
 The following command will pull the latest php-fpm build.
 ```sh

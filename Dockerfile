@@ -35,28 +35,6 @@ RUN for i in $(seq 1 3); do pecl install -o --nobuild redis && s=0 && break || s
     && docker-php-ext-enable redis \
     && cd -
 
-
-# Microsoft SQL Server Prerequisites
-# Credits: https://laravel-news.com/install-microsoft-sql-drivers-php-7-docker
-ENV ACCEPT_EULA=Y
-
-RUN apt-get update \
-    && curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
-    && curl https://packages.microsoft.com/config/debian/9/prod.list \
-        > /etc/apt/sources.list.d/mssql-release.list \
-    && apt-get install -y --no-install-recommends \
-        locales \
-        apt-transport-https \
-    && echo "en_US.UTF-8 UTF-8" > /etc/locale.gen \
-    && locale-gen \
-    && apt-get update \
-    && apt-get -y --no-install-recommends install \
-        unixodbc-dev \
-        msodbcsql17
-
-RUN pecl install sqlsrv pdo_sqlsrv \
-    && docker-php-ext-enable sqlsrv pdo_sqlsrv
-
 RUN echo "php_value[memory_limit] = 512M" >> /usr/local/etc/php-fpm.conf
 RUN echo "php_value[date.timezone] = America/Guyana" >> /usr/local/etc/php-fpm.conf
 RUN echo "php_value[upload_max_filesize] = 1024M" >> /usr/local/etc/php-fpm.conf
