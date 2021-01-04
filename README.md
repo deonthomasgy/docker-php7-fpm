@@ -1,4 +1,4 @@
-# PHP-FPM 7.x
+# PHP-FPM 7.2
 
 PHP-FPM (FastCGI Process Manager) is an alternative PHP FastCGI implementation with some additional features useful for sites of any size, especially busier sites. 
 
